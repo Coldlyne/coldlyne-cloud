@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+import { CloudAnalytics } from "@/components/cloud/cloud-analytics";
+import { isCloudService } from "@/components/cloud/cloud-service";
 import "./globals.css";
 
 const sans = Geist({ variable: "--font-brand-sans", subsets: ["latin"], display: "swap" });
@@ -18,7 +20,10 @@ export const viewport: Viewport = { themeColor: "#030408", colorScheme: "dark" }
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="fr" className={`dark ${sans.variable} ${mono.variable} ${serif.variable} h-full antialiased`}>
-      <body className="flex min-h-full flex-col">{children}</body>
+      <body className="flex min-h-full flex-col">
+        {children}
+        {isCloudService() && <CloudAnalytics />}
+      </body>
     </html>
   );
 }
